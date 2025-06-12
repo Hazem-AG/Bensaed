@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم مشروع الأضاحي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #F8F9FA;
+        }
+        /* Improved responsive styles */
+        .flow-arrow {
+            font-size: 2.5rem;
+            line-height: 1;
+            color: #EB6841;
+        }
+        /* Table styling for mobile */
+        th, td {
+            padding: 0.5rem;
+            text-align: right;
+            border-bottom: 1px solid #edf2f7;
+            color: #2D3748;
+            font-size: 0.875rem; /* Smaller font on mobile */
+        }
+        th {
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+            color: #4A5568;
+            background-color: #F8F9FA;
+            white-space: nowrap; /* Prevent header text wrapping */
+        }
+        .Bensaed{
+            
+        }
+        /* Responsive adjustments */
+        @media (min-width: 640px) {
+            th, td {
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+        }
+        @media (min-width: 768px) {
+            th, td {
+                padding: 0.75rem 1.5rem;
+            }
+        }
+        tr:hover {
+            background-color: #f7fafc;
+        }
+        /* Chart container responsive sizing */
+        .chart-container {
+            width: 100%;
+            height: 300px; /* Default height for mobile */
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        /* Adjust font sizes for mobile */
+        @media (max-width: 640px) {
+            #main-title {
+                font-size: 2rem;
+            }
+            #sub-title {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .stat-card p:first-child {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="Bensaed" style="display: flex; justify-content: center; align-items: center; margin-top: 40px;">
+  <img src="Bensaed.png" alt="مؤسسة بنساعد" style="width: 400px; max-width: 90%;">
+</div>
+
+
+
+
+    <div class="container mx-auto px-2 sm:px-4 md:p-8">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 id="main-title" class="text-3xl md:text-5xl font-extrabold text-[#00A0B0] mb-2">تقرير  حملة الأضاحي المبارك 2025</h1>
+            <p id="sub-title" class="text-base md:text-xl text-gray-600">تقرير مفصل لحملة الاضاحي لسنه 2025 من مؤسسه بنساعد للاعمال الخيريه</p>
+        </header>
+
+        <section id="overview" class="mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-[#6A4A3C]">نظرة عامة سريعة</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 text-center">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#00A0B0] stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#00A0B0]">6</p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">عدد الأضاحي</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#EB6841] stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#EB6841]">1453 <span class="text-xl md:text-2xl">كجم</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">إجمالي الوزن قبل الذبح</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#EDC951] stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#EDC951]">580 <span class="text-xl md:text-2xl">كجم</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">إجمالي صافي اللحوم</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#CC333F] stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#CC333F]">258,533 <span class="text-lg md:text-xl">ج.م</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">إجمالي سعر الأضاحي</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#6A4A3C] sm:col-span-2 lg:col-span-1 stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#6A4A3C]">52.6<span class="text-xl md:text-2xl">%</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">نسبة التحويل للحم</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#00A0B0] sm:col-span-2 lg:col-span-1 stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#00A0B0]">45.7<span class="text-xl md:text-2xl">%</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">نسبة الصكوك من اللحوم</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#EB6841] sm:col-span-2 lg:col-span-1 stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#EB6841]">97.9<span class="text-xl md:text-2xl">%</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">نسبة التوزيع الفعلي</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg border-t-4 border-[#EDC951] sm:col-span-2 lg:col-span-1 stat-card">
+                    <p class="text-3xl md:text-4xl font-extrabold text-[#EDC951]">2.1<span class="text-xl md:text-2xl">%</span></p>
+                    <p class="text-gray-500 mt-2 font-semibold text-sm md:text-base">نسبة الهدر</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="detailed-sacrifices" class="mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-[#6A4A3C]">جدول تفصيلي للأضاحي</h2>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg overflow-x-auto">
+                <p class="text-gray-600 text-center mb-4 text-sm md:text-base">يعرض هذا الجدول تفاصيل كل أضحية مع إمكانية الفرز حسب العمود، ويتبعه رسم بياني يوضح القيمة الإجمالية لكل نوع.</p>
+                <input type="text" id="sacrificeSearch" placeholder="ابحث حسب نوع الأضحية..." class="p-2 border border-gray-300 rounded-md w-full mb-4 text-sm md:text-base">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full leading-normal" id="sacrificesTable">
+                        <thead>
+                            <tr>
+                                <th data-column="0">رقم</th>
+                                <th data-column="1">نوع الأضحية</th>
+                                <th data-column="2">الوزن قبل الذبح</th>
+                                <th data-column="3">صافي اللحم</th>
+                                <th data-column="4">سعر الكيلو</th>
+                                <th data-column="5">السعر الكلي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>بقري</td><td>405 كجم</td><td>147 كجم</td><td>177.5 ج.م</td><td>71,887.5 ج.م</td></tr>
+                            <tr><td>2</td><td>جموسي</td><td>460 كجم</td><td>190 كجم</td><td>154.0 ج.م</td><td>70,840.0 ج.م</td></tr>
+                            <tr><td>3</td><td>بقري</td><td>410 كجم</td><td>160 كجم</td><td>185.0 ج.م</td><td>75,850.0 ج.م</td></tr>
+                            <tr><td>4</td><td>ضاني</td><td>55 كجم</td><td>24 كجم</td><td>230.0 ج.م</td><td>12,650.0 ج.م</td></tr>
+                            <tr><td>5</td><td>ضاني</td><td>59 كجم</td><td>28 كجم</td><td>222.0 ج.م</td><td>13,098.0 ج.م</td></tr>
+                            <tr><td>6</td><td>ضاني</td><td>64 كجم</td><td>31 كجم</td><td>222.0 ج.م</td><td>14,208.0 ج.م</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg mt-6 md:mt-8">
+                <h3 class="font-bold text-lg md:text-xl mb-4 text-center">إجمالي الأسعار حسب نوع الأضحية</h3>
+                <p class="text-gray-600 text-center mb-4 text-sm md:text-base">يوضح هذا الرسم البياني التكلفة الإجمالية لكل نوع من الأضاحي.</p>
+                <div class="chart-container">
+                    <canvas id="priceByTypeChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="weights-value" class="mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-[#6A4A3C]">الأوزان والقيمة الاقتصادية</h2>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                <h3 class="font-bold text-lg md:text-xl mb-4 text-center">مقارنة الوزن قبل الذبح باللحم الصافي</h3>
+                <p class="text-gray-600 text-center mb-4 text-sm md:text-base">هذا الرسم البياني يقارن بين إجمالي الوزن قبل للذبائح وإجمالي كمية اللحم الصافي المستخرجة حسب النوع.</p>
+                <div class="chart-container">
+                    <canvas id="weightComparisonChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="meat-distribution" class="mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-[#6A4A3C]">توزيع اللحوم على الفئات</h2>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                <p class="text-gray-600 text-center mb-4 text-sm md:text-base">يوضح هذا المخطط  كيفية توزيع اللحوم على مختلف الفئات المستفيدة، مع إبراز النسب المئوية لكل فئة.</p>
+                <div class="chart-container">
+                    <canvas id="distributionByCategoryChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg mt-6 md:mt-8">
+                <h3 class="font-bold text-lg md:text-xl mb-4 text-center">رحلة التوزيع</h3>
+                <p class="text-gray-600 text-center max-w-3xl mx-auto mb-6 md:mb-10 text-sm md:text-base">من إجمالي صافي اللحوم، يتم تقسيم الكميات لتلبية احتياجات التوزيع المختلفة. هذه الفئات تمثل الكميات الموزعة فعليًا للمستفيدين.</p>
+                <div class="flex flex-col md:flex-row items-center justify-around text-center space-y-4 md:space-y-0">
+                    <div class="flex flex-col items-center">
+                        <div class="bg-[#00A0B0] text-white p-4 md:p-6 rounded-full w-32 h-32 md:w-40 md:h-40 flex flex-col justify-center shadow-lg">
+                            <span class="text-2xl md:text-3xl font-bold">580</span>
+                            <span class="font-semibold text-sm md:text-base">كجم صافي اللحوم</span>
+                        </div>
+                    </div>
+                    <div class="flow-arrow transform md:-rotate-90">↓</div>
+                    <div class="bg-white p-4 md:p-6 rounded-xl border-2 border-dashed border-[#EB6841] w-full md:w-auto">
+                        <h4 class="font-bold text-base md:text-lg mb-2 text-[#EB6841]">تفاصيل التوزيع (303 كجم)</h4>
+                        <ul class="text-right list-inside list-disc text-sm md:text-base">
+                            <li>حالات داخل المؤسسة: 97 كجم</li>
+                            <li>حالات خارج المؤسسة: 10 كجم</li>
+                            <li>قوافل: 157 كجم</li>
+                            <li>موظفين: 14 كجم</li>
+                            <li>مجنب: 25 كجم</li>
+                        </ul>
+                    </div>
+                    <div class="flow-arrow transform md:-rotate-90">↓</div>
+                    <div class="flex flex-col items-center">
+                        <div class="bg-[#CC333F] text-white p-4 md:p-6 rounded-full w-32 h-32 md:w-40 md:h-40 flex flex-col justify-center shadow-lg">
+                            <span class="text-2xl md:text-3xl font-bold">303</span>
+                            <span class="font-semibold text-sm md:text-base">كجم موزع للفئات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 md:mt-8 text-center bg-blue-100 border-r-4 border-blue-500 text-blue-700 p-3 md:p-4 rounded-lg text-sm md:text-base">
+                    <p class="font-bold">ملاحظة: الكميات الموزعة في هذا القسم (303 كجم) تمثل توزيع اللحوم حسب الفئات المذكورة. مجموع الكميات الموزعة ولحوم الصكوك والهدر (303 + 265 + 12 = 580 كجم) يتطابق الآن مع إجمالي صافي اللحوم.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sukuk-section" class="mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-[#6A4A3C]">بيانات الصكوك</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg md:text-xl mb-4 text-center">إجمالي لحوم الصكوك</h3>
+                    <p class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-4">265 <span class="text-2xl md:text-3xl">كجم</span></p>
+                    <p class="text-gray-600 text-center text-sm md:text-base">تم تخصيص هذه الكمية من إجمالي اللحوم الصافية للصكوك. تشكل هذه الكمية نسبة 45.7% من إجمالي صافي اللحوم.</p>
+                    <p class="text-green-600 font-bold text-xl md:text-2xl mt-4">✅ تم التسليم بنجاح</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h3 class="font-bold text-lg md:text-xl mb-4 text-center">نسبة الصكوك من إجمالي اللحوم</h3>
+                    <p class="text-gray-600 text-center mb-4 text-sm md:text-base">يوضح هذا الرسم البياني مساهمة لحوم الصكوك من إجمالي صافي اللحوم المتاحة.</p>
+                    <div class="chart-container">
+                        <canvas id="sukukPercentageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="waste-section" class="mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-[#6A4A3C]">تحليل الهدر</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg md:text-xl mb-4 text-center">كمية الهدر ونسبتها</h3>
+                    <p class="text-4xl md:text-5xl font-extrabold text-[#CC333F] mb-4">12 <span class="text-2xl md:text-3xl">كجم</span></p>
+                    <p class="text-gray-600 text-center text-sm md:text-base">تمثل هذه الكمية 2.1% من إجمالي صافي اللحوم، وتعتبر ضمن المعدلات الطبيعية لعمليات الذبح والتجهيز.</p>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <h3 class="font-bold text-lg md:text-xl mb-4 text-center">توزيع إجمالي صافي اللحوم</h3>
+                    <p class="text-gray-600 text-center mb-4 text-sm md:text-base">يعرض هذا المخطط كيفية تقسيم إجمالي صافي اللحوم بين التوزيع المباشر، الصكوك، والهدر.</p>
+                    <div class="chart-container">
+                        <canvas id="totalMeatDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-8 md:mt-12 pt-6 md:pt-8 border-t border-gray-300">
+            <p class="text-gray-600 text-sm md:text-base">نُفيد سيادتكم بأنه تم تنفيذ عملية الذبح والتوزيع بكفاءة وشفافية، وقد وصلت اللحوم لمستحقيها كما هو مخطط.
+نتقدم بخالص الشكر لدعمكم المستمر، ونؤكد التزام مؤسسة بنساعد بأعلى معايير الجودة والإنجاز.</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-2">تحت تنفيذ تيم مؤسسة بنساعد</p>
+            <p class="text-xs md:text-sm text-gray-400 mt-2">تحت اشراف المدير التنفيذي الاستاذ محمد ابراهيم</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Callback function for Chart.js tooltips to handle wrapped labels
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' '); // Join array elements for display
+            }
+            return label;
+        };
+
+        // Default options for all Chart.js charts
+        const chartDefaultOptions = {
+            responsive: true, // Chart will resize with its container
+            maintainAspectRatio: false, // Allows chart to take full height of container
+            plugins: {
+                legend: {
+                    position: 'top', // Legend position
+                    labels: {
+                        font: {
+                            family: 'Cairo', // Custom font for legend labels
+                            size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback // Custom callback for tooltip title
+                    },
+                    bodyFont: {
+                        family: 'Cairo', // Custom font for tooltip body
+                        size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                    },
+                    titleFont: {
+                        family: 'Cairo', // Custom font for tooltip title
+                        size: window.innerWidth < 640 ? 12 : 14 // Smaller font on mobile
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        font: { 
+                            family: 'Cairo', // Custom font for y-axis ticks
+                            size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: { 
+                            family: 'Cairo', // Custom font for x-axis ticks
+                            size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                        }
+                    }
+                }
+            }
+        };
+        
+        // Color palette for charts
+        const chartColors = ['#00A0B0', '#EB6841', '#EDC951', '#CC333F', '#6A4A3C', '#28a745', '#ffc107', '#17a2b8'];
+
+        // Function to wrap labels if they are longer than 16 characters
+        const wrapLabel = (label) => {
+            if (typeof label !== 'string' || label.length <= 16) {
+                return label;
+            }
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length <= 16) {
+                    currentLine += (currentLine ? ' ' : '') + word;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
+                }
+            });
+            lines.push(currentLine); // Add the last line
+            return lines;
+        };
+
+        // Detailed Sacrifices Table Sorting and Filtering
+        document.addEventListener('DOMContentLoaded', () => {
+            const table = document.getElementById('sacrificesTable');
+            const headers = table.querySelectorAll('th');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            let sortDirection = {}; // Object to keep track of sort direction for each column
+
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const column = header.dataset.column; // Get column index from data attribute
+                    const isAscending = sortDirection[column] === 'asc'; // Check current sort direction
+                    const multiplier = isAscending ? 1 : -1; // Multiplier for sorting order
+
+                    const sortedRows = rows.sort((a, b) => {
+                        const aText = a.children[column].textContent.trim();
+                        const bText = b.children[column].textContent.trim();
+
+                        // Custom sorting for numeric columns (excluding 'رقم' and including 'الوزن قبل الذبح', 'صافي اللحم', 'سعر الكيلو', 'السعر الكلي')
+                        if (column === '0' || column === '2' || column === '3' || column === '4' || column === '5') {
+                            // Parse numerical values from text, removing non-numeric characters
+                            const aVal = parseFloat(aText.replace(/[^\d.]/g, ''));
+                            const bVal = parseFloat(bText.replace(/[^\d.]/g, ''));
+                            return multiplier * (aVal - bVal); // Numeric sort
+                        } else {
+                            // Alphabetical sort for other columns (e.g., 'نوع الأضحية')
+                            return multiplier * aText.localeCompare(bText, 'ar', { sensitivity: 'base' });
+                        }
+                    });
+
+                    // Clear previous sort indicators from all headers
+                    headers.forEach(h => h.classList.remove('asc', 'desc'));
+
+                    // Append sorted rows to the table body
+                    tbody.innerHTML = ''; // Clear current rows
+                    sortedRows.forEach(row => tbody.appendChild(row));
+
+                    // Toggle sort direction for the next click and add class for visual indication
+                    sortDirection[column] = isAscending ? 'desc' : 'asc';
+                    header.classList.add(sortDirection[column]);
+                });
+            });
+
+            // Search functionality for the sacrifices table
+            const searchInput = document.getElementById('sacrificeSearch');
+            searchInput.addEventListener('keyup', (e) => {
+                const searchText = e.target.value.toLowerCase(); // Get search text in lowercase
+                tbody.innerHTML = ''; // Clear current rows
+                rows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase(); // Get row text in lowercase
+                    if (rowText.includes(searchText)) {
+                        tbody.appendChild(row); // Add row if it matches the search text
+                    }
+                });
+            });
+
+            // Initialize all charts
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            // Chart: Total Price by Sacrifice Type (Bar Chart)
+            const priceByTypeCtx = document.getElementById('priceByTypeChart').getContext('2d');
+            new Chart(priceByTypeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['بقري', 'جموسي', 'ضأن'],
+                    datasets: [{
+                        label: 'السعر الكلي (ج.م)',
+                        data: [147737.5, 70840.0, 39956.0], // Data for total prices by type
+                        backgroundColor: ['#00A0B0', '#EB6841', '#EDC951'], // Background colors for bars
+                        borderColor: ['#00A0B0', '#EB6841', '#EDC951'].map(c => c + 'B3'), // Border colors with transparency
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    ...chartDefaultOptions, // Apply default chart options
+                    indexAxis: 'y', // Horizontal bar chart
+                    scales: {
+                        y: {
+                            beginAtZero: true, // Start y-axis at zero
+                            ticks: {
+                                font: { 
+                                    family: 'Cairo', // Custom font for y-axis ticks
+                                    size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                                }
+                            }
+                        },
+                        x: {
+                            beginAtZero: true, // Start x-axis at zero
+                            ticks: {
+                                font: { 
+                                    family: 'Cairo', // Custom font for x-axis ticks
+                                    size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart: Weight Comparison (Live vs Clean Meat - Bar Chart)
+            const weightComparisonCtx = document.getElementById('weightComparisonChart').getContext('2d');
+            new Chart(weightComparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['بقري', 'جموسي', 'ضأن'],
+                    datasets: [
+                        {
+                            label: 'الوزن قبل الدبح (كجم)',
+                            data: [815, 460, 178], // Data for live weight
+                            backgroundColor: '#6A4A3C', // Background color for live weight bars
+                            borderColor: '#6A4A3C', // Border color
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'اللحم الصافي (كجم)',
+                            data: [307, 190, 83], // Data for clean meat weight
+                            backgroundColor: '#00A0B0', // Background color for clean meat bars
+                            borderColor: '#00A0B0', // Border color
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    ...chartDefaultOptions, // Apply default chart options
+                    scales: {
+                        y: {
+                            beginAtZero: true, // Start y-axis at zero
+                            ticks: {
+                                font: { 
+                                    family: 'Cairo', // Custom font for y-axis ticks
+                                    size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                                }
+                            }
+                        },
+                        x: {
+                            beginAtZero: true, // Start x-axis at zero
+                            ticks: {
+                                font: { 
+                                    family: 'Cairo', // Custom font for x-axis ticks
+                                    size: window.innerWidth < 640 ? 10 : 12 // Smaller font on mobile
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart: Distribution by Category (Doughnut Chart)
+            const distributionByCategoryCtx = document.getElementById('distributionByCategoryChart').getContext('2d');
+            new Chart(distributionByCategoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [ // Labels for distribution categories, wrapped if too long
+                        wrapLabel('حالات المؤسسة'),
+                        wrapLabel('حالات خارجية'),
+                        wrapLabel('قوافل'),
+                        wrapLabel('موظفين'),
+                        wrapLabel('مجنب')
+                    ],
+                    datasets: [{
+                        label: 'توزيع الكميات (كجم)',
+                        data: [97, 10, 157, 14, 25], // Data for quantities distributed to each category
+                        backgroundColor: chartColors.slice(0, 5), // Colors from the defined palette
+                        hoverOffset: 4 // Offset on hover
+                    }]
+                },
+                options: chartDefaultOptions // Apply default chart options
+            });
+
+            // Chart: Sukuk Percentage (Pie Chart)
+            const sukukPercentageCtx = document.getElementById('sukukPercentageChart').getContext('2d');
+            // Calculate sukuk percentage based on 265kg out of 580kg total clean meat
+            const totalCleanMeatForSukukCalc = 580;
+            const totalSukukMeatForSukukCalc = 265;
+            const sukukPercentage = (totalSukukMeatForSukukCalc / totalCleanMeatForSukukCalc) * 100;
+            new Chart(sukukPercentageCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['لحوم الصكوك', 'باقي اللحوم '],
+                    datasets: [{
+                        label: 'نسبة التوزيع',
+                        data: [sukukPercentage, 100 - sukukPercentage], // Data for sukuk percentage
+                        backgroundColor: ['#00A0B0', '#EDC951'], // Colors for slices
+                        hoverOffset: 4
+                    }]
+                },
+                options: chartDefaultOptions // Apply default chart options
+            });
+
+            // Chart: Total Meat Distribution (Distributed, Sukuk, Waste - Pie Chart)
+            const totalMeatDistributionCtx = document.getElementById('totalMeatDistributionChart').getContext('2d');
+            // Corrected total clean meat to 580 kg for consistency
+            const totalCleanMeat = 580; 
+            const totalDistributedCategories = 303; // (580 - 265 - 12) = 303 remains the same
+            const totalSukukMeat = 265;
+            const totalWasteMeat = 12; // Updated waste to 12 kg
+            
+            // Sum of all parts should equal totalCleanMeat (303 + 265 + 12 = 580)
+
+            new Chart(totalMeatDistributionCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['لحوم موزعة (فئات)', 'لحوم الصكوك', 'هدر'],
+                    datasets: [{
+                        label: 'إجمالي صافي اللحوم (كجم)',
+                        data: [totalDistributedCategories, totalSukukMeat, totalWasteMeat], // Data for distribution
+                        backgroundColor: ['#00A0B0', '#EB6841', '#CC333F'], // Colors for slices
+                        hoverOffset: 4
+                    }]
+                },
+                options: chartDefaultOptions // Apply default chart options
+            });
+        }
+
+        // Handle window resize to adjust chart fonts
+        window.addEventListener('resize', function() {
+            // Reinitialize charts on resize to adjust font sizes
+            initializeCharts();
+        });
+    </script>
+</body>
+</html>
