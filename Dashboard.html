@@ -364,11 +364,10 @@
                     <div class="bg-white p-4 sm:p-6 rounded-xl border-2 border-dashed border-orange-500 w-full md:w-auto">
                         <h4 class="font-bold text-base sm:text-lg mb-2 text-orange-500">تفاصيل التوزيع </h4>
                         <ul class="text-right list-inside list-disc text-sm sm:text-base">
-                            <li>حالات داخل المؤسسة: 203 كجم</li>
+                            <li>حالات داخل المؤسسة: 222 كجم</li>
                             <li>حالات خارج المؤسسة: 10 كجم</li>
                             <li>قوافل: 157 كجم</li>
                             <li>موظفين: 13 كجم</li>
-                            <li>تحت التوزيع: 19 كجم</li>
                         </ul>
                     </div>
                     <div class="flow-arrow transform md:-rotate-90">↓</div>
@@ -440,7 +439,7 @@
                     <h3 class="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-center">إجمالي لحوم التوزيع</h3>
                     <p class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-cyan-600 text-center mb-3 sm:mb-4">421 <span class="text-xl sm:text-2xl md:text-3xl">كجم</span></p>
                     <p class="text-gray-600 text-center text-sm sm:text-base">تشكل هذه الكمية نسبة 52.8% من إجمالي صافي اللحوم.</p>
-                    <p class="text-green-600 font-bold text-lg sm:text-xl text-center mt-3 sm:mt-4"> تم التوزيع بنسبه 95% </p>
+                    <p class="text-green-600 font-bold text-lg sm:text-xl text-center mt-3 sm:mt-4"> ✅ تم التوزيع بنسبه 100% </p>
                 </div>
                 <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg w-full">
                     <h3 class="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-center">إجمالي لحوم الصكوك</h3>
@@ -791,10 +790,10 @@
                 new Chart(distributionCtx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['حالات داخل المؤسسة', 'حالات خارج المؤسسة', 'قوافل', 'موظفين', 'تحت التوزيع'],
+                        labels: ['حالات داخل المؤسسة', 'حالات خارج المؤسسة', 'قوافل', 'موظفين'],
                         datasets: [{
                             label: 'كمية اللحم (كجم)',
-                            data: [203, 10, 157, 13, 19],
+                            data: [222, 10, 157, 13],
                             backgroundColor: [
                                 chartColors.primary,
                                 chartColors.secondary,
