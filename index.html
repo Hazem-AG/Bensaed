@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> تقرير شامل لحملة الأضاحي 2025م - مؤسسة بنساعد</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for the new color palette based on #0ea9b6 */
+        :root {
+            --bg-color: #f8fafc; /* A very light gray, almost white */
+            --primary-color: #0ea9b6; /* The user's requested base color */
+            --primary-hover: #0b7f8a; /* A darker shade for hover effects */
+            --secondary-color: #f97316; /* A vibrant orange for contrast */
+            --card-bg: #ffffff;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+        }
+        
+        /* New Header Style with the requested color */
+        .main-header {
+            background: linear-gradient(145deg, #0891b2 0%, var(--primary-color) 100%);
+        }
+
+        .section-title {
+            position: relative;
+            font-size: 2.25rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        /* Redesigned Stat Cards */
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-card .text-cyan-500 {
+             color: var(--primary-color);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Redesigned Navigation Bar */
+        .nav-button {
+            background-color: transparent;
+            transition: color 0.3s, background-color 0.3s;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid transparent;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        .nav-button.active {
+             background-color: var(--secondary-color);
+             color: white;
+             font-weight: 700;
+        }
+
+        /* Cleaner Tables */
+        th, td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+        th {
+            font-weight: 700;
+            color: var(--text-dark);
+            background-color: #f9fafb;
+            cursor: pointer;
+        }
+        tr:hover {
+            background-color: #f3f4f6;
+        }
+        .asc::after { content: " ▲"; font-size: 0.8em; }
+        .desc::after { content: " ▼"; font-size: 0.8em; }
+
+        .header-title {
+            font-size: 3.5rem;
+        }
+        
+        /* Enhanced Donor Cards */
+        .donor-card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        .donor-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+        .donor-card h3 {
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .section-wrapper {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        @media (min-width: 768px) {
+            .section-wrapper {
+                padding: 2.5rem;
+            }
+        }
+        
+        .flow-arrow {
+            color: var(--secondary-color);
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-900/70 backdrop-blur-sm sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex items-center justify-center flex-wrap gap-1 sm:gap-2">
+                <a href="#summary" class="nav-button">الملخص</a>
+                <a href="#sacrifices" class="nav-button">الأضاحي</a>
+                <a href="#sources" class="nav-button">المصادر والكفاءة</a>
+                <a href="#distribution" class="nav-button">التوزيع</a>
+                <a href="#in-kind" class="nav-button">تبرعات عينية</a>
+                <a href="#analysis" class="nav-button">التحليل الشامل</a>
+                <a href="#donors" class="nav-button">الصكوك</a>
+                <a href="#expenses" class="nav-button">التكاليف</a>
+                <a href="#financial" class="nav-button">المالية</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Logo -->
+    <div class="Bensaed" style="display: flex; justify-content: center; align-items: center; margin-top: 10px; margin-bottom: 20px;">
+        <img src="Bensaed.png" alt="مؤسسة بنساعد" style="width: 300px; max-width: 90%;"> 
+    </div>
+
+    <!-- Header -->
+    <header class="main-header text-white pt-16 pb-20 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="header-title font-black drop-shadow-lg">تقرير حملة الأضاحي المبارك 2026</h1>
+            <p class="mt-4 header-subtitle mx-auto drop-shadow-md text-lg text-gray-200">تقرير مفصل لحملة الاضاحي لسنه 2026 من مؤسسه بنساعد للاعمال الخيريه</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 -mt-10">
+
+        <!-- Summary Stats -->
+        <section id="summary" class="mb-16 scroll-mt-24">
+             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">🐑</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">5</p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">أضاحي منفذة</h3>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">⚖️</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">501<span class="text-xl sm:text-2xl">كجم</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">إجمالي صافي اللحوم </h3>
+                    <p class="text-xs text-slate-600 mt-1">     إجمالي اللحوم 501 كجم (290 توزيع مباشر، 211 صكوك).   </p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">💰</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">238,3<span class="text-lg sm:text-xl">ألف</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">إجمالي التبرعات (جنيه)</h3>
+                    <p class="text-xs text-slate-600 mt-1">     238,3 ألف نقداً بالإضافة إلى تبرعات عينية </p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">💸</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">244.7<span class="text-lg sm:text-xl">ألف</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">إجمالي المنصرف (جنيه)</h3>
+                    <p class="text-xs text-slate-600 mt-1">يشمل تكلفة الأضاحي والتكاليف التشغيلية</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">📊</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">41<span class="text-lg sm:text-xl">%</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">نسبة التحويل للحم</h3>
+                     <p class="text-xs text-slate-600 mt-1">من الوزن القائم للأضاحي (1101 كجم)</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">📦</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">53.4<span class="text-lg sm:text-xl">%</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">نسبة لحوم التوزيع</h3>
+                     <p class="text-xs text-slate-600 mt-1">من إجمالي اللحوم المتاحة (501 كجم)</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">♻️</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">4.4<span class="text-lg sm:text-xl">%</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">نسبة فرق الوزن</h3>
+                      <p class="text-xs text-slate-600 mt-1">يمثل 10.7 كجم من إجمالي اللحوم</p>
+                </div>
+                <div class="stat-card">
+                    <div class="text-2xl sm:text-3xl">📝</div>
+                    <p class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 mt-1 sm:mt-2">46.6<span class="text-lg sm:text-xl">%</span></p>
+                    <h3 class="text-slate-500 text-sm sm:text-base mt-1">نسبة الصكوك</h3>
+                    <p class="text-xs text-slate-600 mt-1">من صافي لحوم الأضاحي (501 كجم)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sacrifices Details -->
+        <section id="sacrifices" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="section-title">تفاصيل الأضاحي</h2>
+                <p class="section-subtitle mx-auto mt-4">يعرض هذا الجدول تفاصيل كل أضحية مع إمكانية الفرز والبحث، ويتبعه رسم بياني يوضح القيمة الإجمالية لكل نوع.</p>
+            </div>
+            <div class="section-wrapper">
+                <input type="text" id="sacrificeSearch" placeholder="ابحث حسب نوع الأضحية..." class="p-3 border border-gray-300 rounded-md w-full mb-6 text-base focus:ring-2 focus:ring-primary-color focus:border-transparent transition">
+                <div class="overflow-x-auto">
+                    <table class="w-full leading-normal" id="sacrificesTable">
+                         <thead>
+                            <tr>
+                                <th data-column="0">رقم</th>
+                                <th data-column="1">نوع الأضحية</th>
+                                <th data-column="2">الوزن قبل الذبح</th>
+                                <th data-column="3">صافي اللحم</th>
+                                <th data-column="4">صافي للتوزيع</th>
+                                <th data-column="5">سعر الكيلو</th>
+                                <th data-column="6">السعر الكلي</th>
+                            </tr>
+                        </thead>
+                       <tbody>
+    <tr>
+        <td>أضحية رقم (1)</td>
+        <td>بقري</td>
+        <td>369 كجم</td>
+        <td>144 كجم</td>
+        <td>37.8 كجم</td>
+        <td>200 ج.م</td>
+        <td>73,800 ج.م</td>
+    </tr>
+    <tr>
+        <td>أضحية رقم (2)</td>
+        <td>بقري</td>
+        <td>206 كجم</td>
+        <td>94 كجم</td>
+        <td>68.6 كجم</td>
+        <td>213 ج.م</td>
+        <td>43,878 ج.م</td>
+    </tr>
+    <tr>
+        <td>أضحية رقم (3)</td>
+        <td>بقري</td>
+        <td>396 كجم</td>
+        <td>155 كجم</td>
+        <td>77 كجم</td>
+        <td>200 ج.م</td>
+        <td>79,200 ج.م</td>
+    </tr>
+    <tr>
+        <td>أضحية رقم (4)</td>
+        <td>ضاني</td>
+        <td>64 كجم</td>
+        <td>29 كجم</td>
+        <td>29 كجم</td>
+        <td>225 ج.م</td>
+        <td>14,400 ج.م</td>
+    </tr>
+    <tr>
+        <td>أضحية رقم (5)</td>
+        <td>ضاني</td>
+        <td>66 كجم</td>
+        <td>29 كجم</td>
+        <td>29 كجم</td>
+        <td>225 ج.م</td>
+        <td>14,850 ج.م</td>
+    </tr>
+</tbody>
+
+<tfoot class="bg-gray-50">
+    <tr class="font-bold text-base">
+        <td>5 أضاحي</td>
+        <td></td>
+        <td>1101 كجم</td>
+        <td>451 كجم</td>
+        <td>241.4 كجم</td>
+        <td></td>
+        <td>226,128 ج.م</td>
+    </tr>
+</tfoot>
+                    </table>
+                </div>
+                 
+            
+            
+        </section>
+
+        <!-- Other sections remain unchanged in content -->
+        <!-- Meat Sources & Efficiency -->
+        <section id="sources" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="section-title">مصادر اللحوم وكفاءة التحويل</h2>
+                <p class="section-subtitle mx-auto mt-4">هنا نقارن بين كميات اللحوم الصافية التي أنتجتها كل أضحية، مما يبرز التنوع في المصادر وكفاءة العملية التي بلغت نسبة تحويل 41%.</p>
+            </div>
+             <div class="section-wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h3 class="font-bold text-xl mb-4 text-center text-slate-700">كمية اللحم الصافي من كل أضحية (كجم)</h3>
+                    <div class="chart-container"><canvas id="meatSourceChart"></canvas></div>
+                </div>
+                <div>
+                     <h3 class="font-bold text-xl mb-4 text-center text-slate-700">مقارنة الوزن قبل الذبح باللحم الصافي (كجم)</h3>
+                    <div class="chart-container"><canvas id="weightComparisonChart"></canvas></div>
+                </div>
+            </div>
+
+            
+        </section>
+
+        <!-- Distribution -->
+        <section id="distribution" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="section-title">أين وصلت لحوم الأضاحي؟</h2>
+                <p class="section-subtitle mx-auto mt-4">تم تخصيص 290 كجم من اللحوم (280 كيس) للتوزيع المباشر، وإيصالها بعناية فائقة للفئات الأكثر استحقاقاً.</p>
+            </div>
+            <div class="section-wrapper">
+                 <h3 class="font-bold text-xl mb-6 text-center text-slate-700">توزيع اللحوم<h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                     <div class="chart-container h-96"><canvas id="distributionChart"></canvas></div>
+                     <div>
+                        <h4 class="font-bold text-xl mb-4 text-center text-slate-700">رحلة التوزيع</h4>
+                         <div class="flex flex-col items-center justify-around text-center space-y-4">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-[var(--primary-color)] text-white p-6 rounded-full w-40 h-40 flex flex-col justify-center shadow-lg">
+                                    <span class="text-3xl font-bold">280</span>
+                                    <span class="font-semibold text-base">كيس لحم موزع</span>
+                                </div>
+                            </div>
+                            <div class="flow-arrow text-4xl">↓</div>
+                             <div class="bg-orange-50 p-6 rounded-xl border-2 border-dashed border-secondary-color w-full">
+                                <h4 class="font-bold text-lg mb-2 text-orange-600">تفاصيل التوزيع</h4>
+                                <ul class="text-right list-inside list-disc text-base space-y-1">
+                                    <li>حالات داخل المؤسسة: 151 كجم</li>
+                                    <li>قوافل: 117 كجم</li>
+                                    <li>موظفين: 12 كجم</li>
+                                </ul>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center bg-blue-50 border-r-4 border-blue-500 text-blue-800 p-4 rounded-lg text-base">
+                    <p><strong>ملاحظة:</strong> 
+يبلغ عدد الأكياس الموزعة في هذا القسم (280 كيس لحم)، بينما صافي اللحوم يبلغ 290 كيلوجرام. هذا الفرق يرجع إلى أن الأكياس لا تحتوي جميعها على كيلوغرام كامل بدقة، فقد تختلف الأوزان بسبب زيادات أو نقص بسيط في الجرامات داخل كل كيس.
+كما أن لحوم الصكوك تحتوي أيضًا على زيادات متفاوتة في الوزن، مما يفسر التفاوت بين عدد الأكياس وصافي الوزن الكلي.
+</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- In-Kind Donations -->
+        <section id="in-kind" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="section-title">التبرعات العينية (اللحوم)</h2>
+                <p class="section-subtitle mx-auto mt-4">قائمة باللحوم التي تم التبرع بها مباشرة لدعم الحملة.</p>
+            </div>
+            <div class="section-wrapper">
+                <table class="w-full leading-normal">
+                    <thead><tr><th>الجهة أو المتبرع</th><th>عدد الكيلوجرامات</th><th>النوع</th></tr></thead>
+                    <tbody>
+                        <tr><td>بيت الذكاة</td><td>50 كجم</td><td>بقري</td></tr>
+                    </tbody>
+                    <tfoot><tr class="bg-gray-100 font-bold"><th>الإجمالي</th><th>50 كيلو</th><th></th></tr></tfoot>
+                </table>
+            </div>
+        </section>
+
+        <!-- Comprehensive Analysis -->
+        <section id="analysis" class="py-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="section-title">تحليل شامل لتوزيع اللحوم</h2>
+                <p class="section-subtitle mx-auto mt-4">نظرة تحليلية على كيفية تقسيم إجمالي اللحوم المتاحة (501 كجم) بين قنوات الاستفادة المختلفة.</p>
+            </div>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="stat-card">
+                    <h3 class="font-bold text-xl mb-3 text-center">إجمالي لحوم التوزيع</h3>
+                    <p class="text-5xl font-extrabold text-[var(--primary-color)] text-center mb-3">290 <span class="text-3xl">كجم</span></p>
+                    <p class="text-gray-600 text-center">تمثل 53.4% من إجمالي اللحوم.</p>
+                    <p class="text-green-600 font-bold text-lg text-center mt-3">✅ تم التوزيع 100%</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="font-bold text-xl mb-3 text-center">إجمالي لحوم الصكوك</h3>
+                    <p class="text-5xl font-extrabold text-center mb-3" style="color: var(--secondary-color);">211 <span class="text-3xl">كجم</span></p>
+                    <p class="text-gray-600 text-center">تمثل 46.6% من إجمالي اللحوم.</p>
+                    <p class="text-green-600 font-bold text-lg text-center mt-3">✅ تم التسليم بنجاح</p>
+                </div>
+    
+                <div class="stat-card">
+                    <h3 class="font-bold text-xl mb-3 text-center">فرق الوزن</h3>
+                    <p class="text-5xl font-extrabold text-red-600 text-center mb-3">10.7 <span class="text-3xl">كجم</span></p>
+                    <p class="text-gray-600 text-center">يمثل 4.4% (فرق طبيعي ناتج عن التجهيز).</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Donors -->
+<section id="donors" class="py-16 scroll-mt-24">
+    <div class="text-center mb-12">
+        <h2 class="section-title">أصحاب الصكوك</h2>
+        <p class="section-subtitle mx-auto mt-4">
+            قائمة بأسماء أصحاب الصكوك والمتبرعين المشاركين في حملة الأضاحي 2026.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- العجل الأول -->
+        <div class="donor-card overflow-hidden">
+            <h3 class="font-bold text-xl p-4 text-center text-slate-800 bg-gray-50">
+                🐄 الأضحية رقم (1)
+            </h3>
+            <ul class="p-6 space-y-3 text-slate-600 text-base">
+                <li class="flex justify-between"><span>المهندسة عمادة</span><span class="font-bold text-[var(--primary-color)]">31 كجم</span></li>
+                <li class="flex justify-between"><span>العميد محمد عادل</span><span class="font-bold text-[var(--primary-color)]">19.7 كجم</span></li>
+                <li class="flex justify-between"><span>المهندسة ليلى</span><span class="font-bold text-[var(--primary-color)]">20 كجم</span></li>
+                <li class="flex justify-between"><span>اللواء أيمن أبو وردة</span><span class="font-bold text-[var(--primary-color)]">35.5 كجم</span></li>
+
+                <li class="flex justify-between border-t pt-3 mt-3 font-bold text-slate-800">
+                    <span>إجمالي الصكوك</span>
+                    <span class="text-[var(--primary-color)]">106.2 كجم</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- العجل الثاني -->
+        <div class="donor-card overflow-hidden">
+            <h3 class="font-bold text-xl p-4 text-center text-slate-800 bg-gray-50">
+                🐄 الأضحية رقم (2)
+            </h3>
+            <ul class="p-6 space-y-3 text-slate-600 text-base">
+                <li class="flex justify-between"><span>المهندس محمود الخطيب</span><span class="font-bold text-[var(--primary-color)]">18 كجم</span></li>
+                <li class="flex justify-between"><span>الأستاذ خالد حنفي</span><span class="font-bold text-[var(--primary-color)]">تبرع كامل</span></li>
+                <li class="flex justify-between"><span>المهندس أحمد الخطيب</span><span class="font-bold text-[var(--primary-color)]">7.4 كجم</span></li>
+
+                <li class="flex justify-between border-t pt-3 mt-3 font-bold text-slate-800">
+                    <span>إجمالي الصكوك</span>
+                    <span class="text-[var(--primary-color)]">25.4 كجم</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- العجل الثالث -->
+        <div class="donor-card overflow-hidden">
+            <h3 class="font-bold text-xl p-4 text-center text-slate-800 bg-gray-50">
+                🐄 الأضحية رقم (3)
+            </h3>
+            <ul class="p-6 space-y-3 text-slate-600 text-base">
+                <li class="flex justify-between"><span>الأستاذ أحمد الغضبان</span><span class="font-bold text-[var(--primary-color)]">15.5 كجم</span></li>
+                <li class="flex justify-between"><span>اللواء عبد الفتاح زايد</span><span class="font-bold text-[var(--primary-color)]">تبرع كامل</span></li>
+                <li class="flex justify-between"><span>الأستاذ حسام دبيان</span><span class="font-bold text-[var(--primary-color)]">تبرع كامل</span></li>
+                <li class="flex justify-between"><span>الأستاذ محمد منير</span><span class="font-bold text-[var(--primary-color)]">14.4 كجم</span></li>
+                <li class="flex justify-between"><span>الأستاذ حمدي رفعت</span><span class="font-bold text-[var(--primary-color)]">15.5 كجم</span></li>
+                <li class="flex justify-between"><span>الأستاذ صلاح صابر</span><span class="font-bold text-[var(--primary-color)]">15.3 كجم</span></li>
+                <li class="flex justify-between"><span>الأستاذة ليالي أحمد زايد</span><span class="font-bold text-[var(--primary-color)]">18 كجم</span></li>
+
+                <li class="flex justify-between border-t pt-3 mt-3 font-bold text-slate-800">
+                    <span>إجمالي الصكوك</span>
+                    <span class="text-[var(--primary-color)]">78.7 كجم</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+        <!-- Expenses -->
+        <section id="expenses" class="py-16 scroll-mt-24">
+    <div class="text-center mb-12">
+        <h2 class="section-title">تكاليف حملة الأضاحي</h2>
+        <p class="section-subtitle mx-auto mt-4">
+            تفاصيل المصروفات التشغيلية التي تم إنفاقها لتنفيذ حملة الأضاحي لعام 2026.
+        </p>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+
+            <div>
+                <h4 class="font-bold text-lg mb-2">
+                    1. تكاليف الذبح
+                    <span class="font-mono text-base text-red-600">(11,000 ج.م)</span>
+                </h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>تكاليف ذبح وتجهيز الأضاحي بالمجزر.</li>
+                    <li>شملت ذبح 3 عجول و2 خروف.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-2">
+                    2. تكاليف النقل والانتقالات
+                    <span class="font-mono text-base text-red-600">(4,472 ج.م)</span>
+                </h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>نقل الأضاحي إلى المجزر.</li>
+                    <li>نقل اللحوم إلى مقر المؤسسة.</li>
+                    <li>انتقالات فريق العمل أثناء التوزيع.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-2">
+                    3. التعبئة والتغليف والمستلزمات
+                    <span class="font-mono text-base text-red-600">(3,120 ج.م)</span>
+                </h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>أكياس التعبئة والتغليف.</li>
+                    <li>مستلزمات التجهيز والتوزيع.</li>
+                    <li>مصاريف تشغيلية متنوعة مرتبطة بالحملة.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-lg mb-2">
+                    إجمالي المصروفات
+                    <span class="font-mono text-base text-green-600">(18,592 ج.م)</span>
+                </h4>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>إجمالي تكاليف تنفيذ حملة الأضاحي لعام 2026.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+        <!-- Financial Summary -->
+        <section id="financial" class="py-16 scroll-mt-24">
+    <div class="text-center mb-12">
+        <h2 class="section-title">الملخص المالي للحملة</h2>
+        <p class="section-subtitle mx-auto mt-4">
+            نظرة شاملة على الوضع المالي لحملة الأضاحي لعام 2026، موضحين الإيرادات والمصروفات ونتيجة الحملة.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+        <div class="lg:col-span-3 section-wrapper">
+            <h3 class="font-bold text-xl mb-4 text-center">جدول المركز المالي</h3>
+
+            <table class="w-full">
+                <tbody>
+
+                    <tr class="bg-green-50">
+                        <td class="font-bold text-green-800">
+                            إجمالي الإيرادات
+                        </td>
+                        <td class="text-left font-mono font-bold text-green-800 text-lg">
+                            238,320 ج.م
+                        </td>
+                    </tr>
+
+                    <tr class="bg-red-50">
+                        <td class="font-bold text-red-800">
+                            إجمالي تكلفة الأضاحي
+                        </td>
+                        <td class="text-left font-mono font-bold text-red-800 text-lg">
+                            (226,128 ج.م)
+                        </td>
+                    </tr>
+
+                    <tr class="bg-red-50">
+                        <td class="font-bold text-red-800">
+                            إجمالي التكاليف التشغيلية
+                        </td>
+                        <td class="text-left font-mono font-bold text-red-800 text-lg">
+                            (18,592 ج.م)
+                        </td>
+                    </tr>
+
+                    <tr class="bg-gray-100 font-bold">
+                        <td>إجمالي المنصرف</td>
+                        <td class="text-left font-mono text-lg">
+                            (244,720 ج.م)
+                        </td>
+                    </tr>
+
+                    <tr class="bg-red-100 font-extrabold text-red-800">
+                        <td class="text-xl">العجز</td>
+                        <td class="text-left font-mono text-xl">
+                            (6,400 ج.م)
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="mt-4 sm:mt-6 text-center bg-cyan-50 border-r-4 border-cyan-500 text-cyan-800 p-3 sm:p-4 rounded-lg text-sm sm:text-base">
+                <p class="font-bold">
+                    ملاحظة مالية: بلغت التكاليف التشغيلية 18,592 جنيه بنسبة 7.6% فقط من إجمالي المنصرف، بينما تم توجيه 92.4% من إجمالي المصروفات مباشرة لشراء الأضاحي. وقد بلغ العجز النهائي للحملة 6,400 جنيه نتيجة ارتفاع التكاليف التشغيلية، وتمت تغطيته من موارد المؤسسة لضمان تنفيذ الحملة وتحقيق أهدافها بالكامل.
+                </p>
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 section-wrapper">
+            <h3 class="font-bold text-xl mb-4 text-center">
+                توزيع إجمالي المصروفات
+            </h3>
+            <div class="chart-container">
+                <canvas id="financialChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+</section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="text-center py-8 bg-slate-800 text-slate-400 mt-12">
+        <p>&copy; 2025 مؤسسة بنساعد للأعمال الخيرية. كل الحقوق محفوظة.</p>
+        <p>تصميم وتطوير بواسطة فريق المؤسسة.</p>
+   <p class="text-xs text-slate-500 mt-1">تحت اشراف المدير التنفيذي الاستاذ محمد ابراهيم</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- Global Chart Configuration ---
+        Chart.defaults.font.family = "'Cairo', sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.plugins.tooltip.rtl = true;
+        Chart.defaults.plugins.legend.rtl = true;
+        Chart.defaults.plugins.legend.position = 'bottom';
+        // Updated color object based on the new palette
+        const COLORS = {
+            primary: '#0ea9b6',
+            secondary: '#f97316',
+            lightCyan: '#5eead4', // A lighter shade for variety
+            sky: '#0ea5e9',
+            red: '#ef4444',
+            purple: '#8b5cf6',
+            textDark: '#1f2937'
+        };
+
+        // --- Chart 1: Price By Sacrifice Type ---
+        const priceByTypeCtx = document.getElementById('priceByTypeChart');
+        if (priceByTypeCtx) {
+            new Chart(priceByTypeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['بقري', 'جاموسي', 'ضاني'],
+                    datasets: [{
+                        label: 'متوسط السعر (ج.م)',
+                        data: [73875, 70500, 13675],
+                        backgroundColor: [COLORS.primary, COLORS.secondary, COLORS.lightCyan],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // --- Chart 2 & 3: Meat sources ---
+       const meatSourceCtx = document.getElementById('meatSourceChart');
+if (meatSourceCtx) {
+    new Chart(meatSourceCtx, {
+        type: 'bar',
+        data: {
+            labels: ['أضحية (1) بقري', 'أضحية (2) بقري', 'أضحية (3) بقري', 'أضحية (4) ضاني', 'أضحية (5) ضاني'],
+            datasets: [{
+                label: 'صافي اللحم (كجم)',
+                data: [144, 94, 155, 29, 29],
+                backgroundColor: [
+                    COLORS.primary,
+                    COLORS.secondary,
+                    COLORS.primary,
+                    COLORS.lightCyan,
+                    COLORS.lightCyan
+                ],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'كجم'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
+const weightComparisonCtx = document.getElementById('weightComparisonChart');
+if (weightComparisonCtx) {
+    new Chart(weightComparisonCtx, {
+        type: 'bar',
+        data: {
+            labels: ['أضحية (1)', 'أضحية (2)', 'أضحية (3)', 'أضحية (4)', 'أضحية (5)'],
+            datasets: [
+                {
+                    label: 'الوزن قبل الذبح (كجم)',
+                    data: [369, 206, 396, 64, 66],
+                    backgroundColor: COLORS.sky,
+                    borderRadius: 4
+                },
+                {
+                    label: 'صافي اللحم (كجم)',
+                    data: [144, 94, 155, 29, 29],
+                    backgroundColor: COLORS.red,
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'كجم'
+                    }
+                }
+            }
+        }
+    });
+}
+
+        // --- Chart 4: Distribution Channels ---
+        const distributionCtx = document.getElementById('distributionChart');
+        if (distributionCtx) {
+            new Chart(distributionCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['حالات داخل المؤسسة', 'قوافل', 'موظفين'],
+                    datasets: [{
+                        label: 'كمية اللحم (كجم)',
+                        data: [151, 117, 12],
+                        backgroundColor: [COLORS.primary, COLORS.secondary, COLORS.lightCyan, COLORS.sky],
+                        hoverOffset: 8,
+                        borderColor: '#f9fafb',
+                        borderWidth: 2,
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+        
+        // --- Chart 5: Financial Summary ---
+        const financialCtx = document.getElementById('financialChart');
+if (financialCtx) {
+    new Chart(financialCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['تكلفة الأضاحي', 'التكاليف التشغيلية'],
+            datasets: [{
+                label: 'المبلغ (جنيه)',
+                data: [226128, 18592],
+                backgroundColor: [
+                    COLORS.primary,
+                    COLORS.red
+                ],
+                hoverOffset: 8,
+                borderColor: '#f9fafb',
+                borderWidth: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: (context) =>
+                            `${context.label}: ${context.parsed.toLocaleString('ar-EG')} ج.م`
+                    }
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+        
+        // --- Table Sorting and Filtering ---
+        const table = document.getElementById('sacrificesTable');
+        const headers = table.querySelectorAll('th[data-column]');
+        const searchInput = document.getElementById('sacrificeSearch');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        let sortDirections = Array.from(headers).map(() => null);
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            rows.forEach(row => {
+                const typeCell = row.cells[1];
+                row.style.display = typeCell.textContent.toLowerCase().includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                const column = parseInt(header.dataset.column);
+                const newDirection = sortDirections[index] === 'asc' ? 'desc' : 'asc';
+                headers.forEach((h, i) => {
+                    h.classList.remove('asc', 'desc');
+                    if (i !== index) sortDirections[i] = null;
+                });
+                sortDirections[index] = newDirection;
+                header.classList.add(newDirection);
+                rows.sort((a, b) => {
+                    const aVal = parseFloat(a.cells[column].textContent.replace(/[^0-9.]/g, '')) || a.cells[column].textContent.trim();
+                    const bVal = parseFloat(b.cells[column].textContent.replace(/[^0-9.]/g, '')) || b.cells[column].textContent.trim();
+                    if (aVal < bVal) return newDirection === 'asc' ? -1 : 1;
+                    if (aVal > bVal) return newDirection === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                tbody.innerHTML = '';
+                rows.forEach(row => tbody.appendChild(row));
+            });
+        });
+        
+        // --- Smooth Scroll & Active Nav Link Highlighting ---
+        const navLinks = document.querySelectorAll('.nav-button');
+        const sections = document.querySelectorAll('section[id]');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+    });
+    </script>
+</body>
+</html>
